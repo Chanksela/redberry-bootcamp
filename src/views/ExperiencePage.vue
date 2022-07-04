@@ -26,9 +26,13 @@
         <div class="character">
           <label for="character">Choose your character:</label><br />
           <select name="character" id="character" form="character">
-            <option value="one">one</option>
-            <option value="two">two</option>
-            <option value="three">three</option>
+            <option
+              v-for="character in characters"
+              v-bind:key="character.id"
+              value="{{charachter.name}}"
+            >
+              {{ character.name }}
+            </option>
           </select>
         </div>
         <div class="prev-participation">
@@ -48,6 +52,18 @@
 </template>
 <script>
 import FormLeft from "@/components/FormLeft.vue";
-export default { name: "ExperiencePage", components: { FormLeft } };
+export default {
+  name: "ExperiencePage",
+  components: { FormLeft },
+  data() {
+    return { characters: [] };
+  },
+  mounted() {
+    fetch("https://chess-tournament-api.devtest.ge/api/grandmasters")
+      .then((res) => res.json())
+      .then((data) => (this.characters = data))
+      .catch((err) => console.log(err.message));
+  },
+};
 </script>
 <style></style>
