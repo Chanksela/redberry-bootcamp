@@ -1,12 +1,5 @@
 <template>
-  <div class="left">
-    <div class="left-header">
-      <h5>Redberry Knight Cup</h5>
-    </div>
-    <div class="cover">
-      <img src="@/assets/pictures/fourth.png" />
-    </div>
-  </div>
+  <FormLeft :coverImg="'fourth.png'" />
   <div class="right">
     <div class="content">
       <img src="@/assets/pictures/succsess.png" alt="success" />
@@ -19,7 +12,9 @@
 </template>
 
 <script>
+import FormLeft from "../components/FormLeft.vue";
 export default {
   name: "ThankYouPage",
+  components: { FormLeft },
 };
 </script>

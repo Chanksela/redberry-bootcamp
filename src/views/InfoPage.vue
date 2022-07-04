@@ -1,16 +1,9 @@
 <template>
-  <div class="left">
-    <div class="left-header">
-      <h5>Redberry Knight Cup</h5>
-    </div>
-    <div class="cover">
-      <img class="img" src="@/assets/pictures/second.png" />
-      <div class="quote">
-        <h3>"WHEN YOU SEE A GOOD MOVE LOOK FOR A BETTER ONE"</h3>
-        <p>EMANUEL LASKER</p>
-      </div>
-    </div>
-  </div>
+  <FormLeft
+    :coverImg="'second.png'"
+    :quote="'WHEN YOU SEE A GOOD MOVE LOOK FOR A BETTER ONE'"
+    :author="'EMANUEL LASKER'"
+  />
   <div class="right">
     <div class="right-header">
       <h6>Changable Header text</h6>
@@ -46,4 +39,8 @@
     </div>
   </div>
 </template>
+<script>
+import FormLeft from "@/components/FormLeft.vue";
+export default { name: "InfoPage", components: { FormLeft } };
+</script>
 <style></style>

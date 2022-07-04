@@ -1,12 +1,6 @@
 <template>
-  <div class="left">
-    <div class="left-header">
-      <h5>Redberry Knight Cup</h5>
-    </div>
-    <div class="cover">
-      <img src="@/assets/pictures/first.png" />
-    </div>
-  </div>
+  <FormLeft :coverImg="'first.png'" />
+
   <div class="right">
     <div class="content">
       <h1>CHESS SAYS A LOT ABOUT WHO WE ARE</h1>
@@ -17,7 +11,11 @@
   </div>
 </template>
 <script>
-export default { name: "Welcome-Page" };
+import FormLeft from "../components/FormLeft.vue";
+export default {
+  name: "WelcomePage",
+  components: { FormLeft },
+};
 </script>
 <style>
 * {

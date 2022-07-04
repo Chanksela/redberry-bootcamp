@@ -1,19 +1,9 @@
 <template>
-  <div class="left">
-    <div class="left-header">
-      <h5>Redberry Knight Cup</h5>
-    </div>
-    <div class="cover">
-      <img class="img" src="@/assets/pictures/third.png" />
-      <div class="quote">
-        <h3>
-          "MANY HAVE BECOME CHESS MASTERS; NO ONE HAS BECOME THE MASTER OF
-          CHESS."
-        </h3>
-        <p>SIEGBERT TARRASCH</p>
-      </div>
-    </div>
-  </div>
+  <FormLeft
+    :coverImg="'third.png'"
+    :quote="'MANY HAVE BECOME CHESS MASTERS; NO ONE HAS BECOME THE MASTER OF CHESS'"
+    :author="'SIEGBERT TARRASCH'"
+  />
   <div class="right">
     <div class="right-header">
       <h6>Changable Header text</h6>
@@ -56,4 +46,8 @@
     </div>
   </div>
 </template>
+<script>
+import FormLeft from "@/components/FormLeft.vue";
+export default { name: "ExperiencePage", components: { FormLeft } };
+</script>
 <style></style>
