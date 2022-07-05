@@ -37,9 +37,15 @@
         </div>
         <div class="prev-participation">
           <p>Have you participated In the Redberry Championship?</p>
-          <input type="radio" id="yes" name="yes" value="yes" />
+          <input
+            v-model="this.already_participated"
+            type="radio"
+            id="yes"
+            name="participated"
+            value="yes"
+          />
           <label for="yes">Yes</label><br />
-          <input type="radio" id="no" name="no" value="no" />
+          <input type="radio" id="no" name="participated" value="no" />
           <label for="no">No</label><br />
         </div>
       </div>
@@ -56,7 +62,7 @@ export default {
   name: "ExperiencePage",
   components: { FormLeft },
   data() {
-    return { characters: [] };
+    return { characters: [], already_participated: true, character_id: 2 };
   },
   mounted() {
     fetch("https://chess-tournament-api.devtest.ge/api/grandmasters")

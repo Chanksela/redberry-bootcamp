@@ -18,19 +18,23 @@
       <div class="content">
         <label for="name">Name</label>
         <br />
-        <input type="text" id="name" />
+        <input v-model="this.name" type="text" id="name" />
+        <p>Name: {{ name }}</p>
         <br />
         <label for="email">Email</label>
         <br />
-        <input type="email" id="email" />
+        <input v-model="this.email" type="email" id="email" />
+        <p>Email: {{ email }}</p>
         <br />
         <label for="tel">Phone Number</label>
         <br />
-        <input type="tel" id="tel" />
+        <input v-model="this.phone" type="tel" id="tel" />
+        <p>Tel: {{ phone }}</p>
         <br />
         <label for="date">Date of birth</label>
         <br />
-        <input type="date" id="date" />
+        <input v-model="this.date_of_birth" type="text" id="date" />
+        <p>DOB: {{ date_of_birth }}</p>
       </div>
     </div>
     <div class="page-navigation">
@@ -41,6 +45,23 @@
 </template>
 <script>
 import FormLeft from "@/components/FormLeft.vue";
-export default { name: "InfoPage", components: { FormLeft } };
+export default {
+  name: "InfoPage",
+  components: { FormLeft },
+  data() {
+    return {
+      name: "Beth Harmon",
+      email: "beth@redberry.ge",
+      phone: "598125819",
+      date_of_birth: "10/20/1997",
+      experience_level: "beginner",
+    };
+  },
+  methods: {
+    testFun() {
+      console.log(this.test);
+    },
+  },
+};
 </script>
 <style></style>
