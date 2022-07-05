@@ -54,7 +54,7 @@
             type="radio"
             id="yes"
             name="participated"
-            value="true"
+            v-bind:value="true"
           />
           <label for="yes">Yes</label><br />
           <input
@@ -62,7 +62,7 @@
             type="radio"
             id="no"
             name="participated"
-            value="false"
+            v-bind:value="false"
           />
           <label for="no">No</label><br />
           <p>{{ already_participated }}</p>
@@ -84,8 +84,8 @@ export default {
     return {
       characters: [],
       experience_level: "",
-      already_participated: true,
-      character_id: 2,
+      already_participated: "",
+      character_id: "",
     };
   },
   mounted() {
