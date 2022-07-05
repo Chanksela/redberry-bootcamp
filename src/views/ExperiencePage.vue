@@ -17,36 +17,55 @@
       <div class="content">
         <div class="knowledge">
           <label for="level">Level of knowledge</label><br />
-          <select name="level" id="level" form="knowledgelvl">
+          <select
+            v-model="experience_level"
+            name="level"
+            id="level"
+            form="knowledgelvl"
+          >
             <option value="beginner">Beginner</option>
             <option value="intermediate">Intermediate</option>
             <option value="professional">Professional</option>
           </select>
+          <p>Level: {{ experience_level }}</p>
         </div>
         <div class="character">
           <label for="character">Choose your character:</label><br />
-          <select name="character" id="character" form="character">
+          <select
+            v-model="character_id"
+            name="character"
+            id="character"
+            form="character"
+          >
             <option
               v-for="character in characters"
               v-bind:key="character.id"
-              value="{{charachter.name}}"
+              v-bind:value="character.id"
             >
               {{ character.name }}
             </option>
           </select>
+          <p>{{ character_id }}</p>
         </div>
         <div class="prev-participation">
           <p>Have you participated In the Redberry Championship?</p>
           <input
-            v-model="this.already_participated"
+            v-model="already_participated"
             type="radio"
             id="yes"
             name="participated"
-            value="yes"
+            value="true"
           />
           <label for="yes">Yes</label><br />
-          <input type="radio" id="no" name="participated" value="no" />
+          <input
+            v-model="already_participated"
+            type="radio"
+            id="no"
+            name="participated"
+            value="false"
+          />
           <label for="no">No</label><br />
+          <p>{{ already_participated }}</p>
         </div>
       </div>
     </div>
@@ -62,7 +81,12 @@ export default {
   name: "ExperiencePage",
   components: { FormLeft },
   data() {
-    return { characters: [], already_participated: true, character_id: 2 };
+    return {
+      characters: [],
+      experience_level: "",
+      already_participated: true,
+      character_id: 2,
+    };
   },
   mounted() {
     fetch("https://chess-tournament-api.devtest.ge/api/grandmasters")

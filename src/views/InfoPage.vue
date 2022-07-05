@@ -18,22 +18,22 @@
       <div class="content">
         <label for="name">Name</label>
         <br />
-        <input v-model="this.name" type="text" id="name" />
+        <input v-model="name" type="text" id="name" />
         <p>Name: {{ name }}</p>
         <br />
         <label for="email">Email</label>
         <br />
-        <input v-model="this.email" type="email" id="email" />
+        <input v-model="email" type="email" id="email" />
         <p>Email: {{ email }}</p>
         <br />
         <label for="tel">Phone Number</label>
         <br />
-        <input v-model="this.phone" type="tel" id="tel" />
+        <input v-model="phone" type="tel" id="tel" />
         <p>Tel: {{ phone }}</p>
         <br />
         <label for="date">Date of birth</label>
         <br />
-        <input v-model="this.date_of_birth" type="text" id="date" />
+        <input v-model="date_of_birth" type="text" id="date" />
         <p>DOB: {{ date_of_birth }}</p>
       </div>
     </div>
@@ -50,18 +50,13 @@ export default {
   components: { FormLeft },
   data() {
     return {
-      name: "Beth Harmon",
-      email: "beth@redberry.ge",
-      phone: "598125819",
-      date_of_birth: "10/20/1997",
-      experience_level: "beginner",
+      name: "",
+      email: "",
+      phone: "",
+      date_of_birth: "",
     };
   },
-  methods: {
-    testFun() {
-      console.log(this.test);
-    },
-  },
+  methods: {},
 };
 </script>
 <style></style>
