@@ -9,6 +9,11 @@ img {
   background-color: black;
   color: white;
 }
+.disabled {
+  background-color: black;
+  color: white;
+  pointer-events: none;
+}
 .prv-btn {
   background-color: white;
   color: black;

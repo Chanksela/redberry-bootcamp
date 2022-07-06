@@ -15,10 +15,10 @@
         <h3>Personal Information</h3>
         <p>This is basic informations field</p>
       </div>
-      <div class="content">
+      <div class="content" @change="test">
         <label for="name">Name</label>
         <br />
-        <input v-model="name" type="text" id="name" />
+        <input v-model="name" type="text" id="name" required />
         <p>Name: {{ name }}</p>
         <br />
         <label for="email">Email</label>
@@ -39,7 +39,14 @@
     </div>
     <div class="page-navigation">
       <router-link class="prv-btn" to="/">Back</router-link>
-      <router-link class="nxt-btn" to="/experience">Next</router-link>
+      <!-- <router-link @click="testClick" to="/experience">Next</router-link> -->
+      <button
+        @click="
+          {
+            error && $router.push('/experience');
+          }
+        "
+      ></button>
     </div>
   </div>
 </template>
@@ -54,9 +61,40 @@ export default {
       email: "",
       phone: "",
       date_of_birth: "",
+      error: false,
+      nxtPg: "experience",
     };
   },
-  methods: {},
+  methods: {
+    test() {
+      if (
+        this.name.length <= 2
+        // ||
+        // !this.email.includes("@") ||
+        // this.phone.length !== 9 ||
+        // this.date_of_birth == ""
+      ) {
+        this.error = false;
+      } else {
+        this.error = true;
+      }
+      console.log(this.error);
+    },
+    testClick() {
+      console.log(
+        "name: ",
+        this.name,
+        "email: ",
+        this.email,
+        "phone: ",
+        this.phone,
+        "dob: ",
+        this.date_of_birth,
+        "error: ",
+        this.error
+      );
+    },
+  },
 };
 </script>
 <style></style>
