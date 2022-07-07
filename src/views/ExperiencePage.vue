@@ -71,7 +71,7 @@
     </div>
     <div class="page-navigation">
       <router-link class="prv-btn" to="/info">Back</router-link>
-      <router-link class="nxt-btn" to="/thanks">Next</router-link>
+      <button class="nxt-btn" @click="finish">Done</button>
     </div>
   </div>
 </template>
@@ -87,6 +87,18 @@ export default {
       already_participated: "",
       character_id: "",
     };
+  },
+  methods: {
+    finish() {
+      console.log(
+        "experience: ",
+        this.experience_level,
+        "previous participation: ",
+        this.already_participated,
+        "charachter_id: ",
+        this.character_id
+      );
+    },
   },
   mounted() {
     fetch("https://chess-tournament-api.devtest.ge/api/grandmasters")

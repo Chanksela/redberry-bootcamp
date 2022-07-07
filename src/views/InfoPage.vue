@@ -15,13 +15,16 @@
         <h3>Personal Information</h3>
         <p>This is basic informations field</p>
       </div>
-      <div class="content" @change="test">
+      <div class="content">
         <label for="name">Name</label>
         <br />
-        <input v-model="name" type="text" id="name" required />
+        <input v-model="name" type="text" id="name" />
         <p>Name: {{ name }}</p>
+        <div v-if="nameError !== ''" class="error">{{ nameError }}</div>
         <br />
         <label for="email">Email</label>
+        <div v-if="emailError !== ''" class="error">{{ emailError }}</div>
+
         <br />
         <input v-model="email" type="email" id="email" />
         <p>Email: {{ email }}</p>
@@ -41,12 +44,14 @@
       <router-link class="prv-btn" to="/">Back</router-link>
       <!-- <router-link @click="testClick" to="/experience">Next</router-link> -->
       <button
+        class="nxt-btn"
         @click="
-          {
-            error && $router.push('/experience');
-          }
+          test();
+          error && $router.push('/experience');
         "
-      ></button>
+      >
+        Next
+      </button>
     </div>
   </div>
 </template>
@@ -63,23 +68,26 @@ export default {
       date_of_birth: "",
       error: false,
       nxtPg: "experience",
+      nameError: "",
+      emailError: "",
     };
   },
   methods: {
     test() {
-      if (
-        this.name.length <= 2
-        // ||
-        // !this.email.includes("@") ||
-        // this.phone.length !== 9 ||
-        // this.date_of_birth == ""
-      ) {
-        this.error = false;
+      if (!this.email.includes("@")) {
+        this.emailError = "wrong email type";
+      } else if (this.name.length <= 2) {
+        this.nameError = "name must be longer than 2 character";
       } else {
         this.error = true;
+        this.nameError = "";
       }
-      console.log(this.error);
+      console.log(this.error, this.nameError, this.emailError);
     },
+    // ||
+    // !this.email.includes("@") ||
+    // this.phone.length !== 9 ||
+    // this.date_of_birth == ""
     testClick() {
       console.log(
         "name: ",

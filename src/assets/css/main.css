@@ -5,6 +5,10 @@ a {
 img {
   width: 200px;
 }
+button {
+  border: none;
+  cursor: pointer;
+}
 .nxt-btn {
   background-color: black;
   color: white;
