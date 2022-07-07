@@ -4,6 +4,12 @@
     :quote="'WHEN YOU SEE A GOOD MOVE LOOK FOR A BETTER ONE'"
     :author="'EMANUEL LASKER'"
   />
+  <Popup v-if="errors.messages.nameErrorMessage !== ''">{{
+    errors.messages.nameErrorMessage
+  }}</Popup>
+  <Popup v-if="errors.messages.emailErrorMesssage">{{
+    errors.messages.emailErrorMesssage
+  }}</Popup>
   <div class="right">
     <div class="right-header">
       <h6>Changable Header text</h6>
@@ -100,9 +106,10 @@
 </template>
 <script>
 import FormLeft from "@/components/FormLeft.vue";
+import Popup from "../components/Popup.vue";
 export default {
   name: "InfoPage",
-  components: { FormLeft },
+  components: { FormLeft, Popup },
   data() {
     return {
       state: {
@@ -112,7 +119,7 @@ export default {
         date_of_birth: "",
       },
       errors: {
-        error: false,
+        error: Boolean,
         nameHasError: false,
         emailHasError: false,
         phoneHasError: false,
@@ -137,6 +144,7 @@ export default {
         this.state.phone.length !== 9 ||
         this.state.date_of_birth === ""
       ) {
+        this.errors.error = false;
         this.errors.messages.errorMessage =
           "Please fill every input and follow their requirments";
         alert(this.errors.messages.errorMessage);
@@ -148,11 +156,16 @@ export default {
     // individual input error methods
     // for name
     nameInputError(e) {
-      if (e.target.value.length <= 2) {
+      console.log(e.target.value);
+      if (e.target.value.length <= 2 || e.target.value === "") {
         this.errors.nameHasError = true;
         this.errors.messages.nameErrorMessage =
           "Name must be longer than 2 characters";
-        console.log(e.target.value.length, this.errors.nameHasError);
+        console.log(
+          e.target.value,
+          e.target.value.length,
+          this.errors.nameHasError
+        );
       } else {
         this.errors.nameHasError = false;
         this.errors.messages.nameErrorMessage = "";
