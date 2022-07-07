@@ -36,13 +36,21 @@ input {
   background-color: white;
   color: black;
 }
-.error {
+.incorrectName {
   background-color: rgba(255, 0, 0, 0.4);
   color: red;
 }
-.correct {
-  background-color: rgba(0, 255, 0, 0.4);
-  color: black;
+.incorrectEmail {
+  background-color: rgba(255, 0, 0, 0.4);
+  color: red;
+}
+.incorrectPhone {
+  background-color: rgba(255, 0, 0, 0.4);
+  color: red;
+}
+.incorrectDOB {
+  background-color: rgba(255, 0, 0, 0.4);
+  color: red;
 }
 
 /* tempoorary css */

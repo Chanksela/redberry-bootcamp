@@ -21,8 +21,12 @@
             placeholder="Name"
             type="text"
             id="name"
+            :class="{
+              incorrectName: errors.nameHasError,
+              correctName: !errors.nameHasError,
+            }"
             v-model="name"
-            @change="handleError"
+            @change="nameInputError"
           /><sup class="required">*</sup>
         </div>
         <div>
@@ -31,6 +35,11 @@
             v-model="email"
             type="email"
             id="email"
+            :class="{
+              incorrectEmail: errors.emailHasError,
+              correctEmail: errors.emailHasError,
+            }"
+            @change="emailInputError"
           /><sup class="required">*</sup>
         </div>
         <div>
@@ -40,6 +49,11 @@
             type="tel"
             id="tel"
             pattern="[0-9]{3}[0-9]{3}[0-9]{3}"
+            :class="{
+              incorrectPhone: errors.phoneHasError,
+              correctPhone: errors.phoneHasError,
+            }"
+            @change="phoneInputError"
           /><sup class="required">*</sup>
         </div>
         <div>
@@ -48,7 +62,11 @@
             v-model="date_of_birth"
             type="date"
             id="date"
-            pattern="\d{4}/\d{2}/\d{2}\"
+            :class="{
+              incorrectDOB: errors.dobHasError,
+              correctDOB: errors.dobHasError,
+            }"
+            @change="dobInputError"
           />
           <sup class="required">*</sup>
         </div>
@@ -79,13 +97,19 @@ export default {
       email: "",
       phone: "",
       date_of_birth: "",
-      hasError: false,
-      error: false,
-      inputError: false,
-      errorMessage: "",
+      errors: {
+        nameHasError: false,
+        emailHasError: false,
+        phoneHasError: false,
+        dobHasError: false,
+        error: false,
+        inputError: false,
+        errorMessage: "",
+      },
     };
   },
   methods: {
+    // checking all erros when clickin next page
     checkError() {
       if (
         this.name.length <= 2 ||
@@ -100,20 +124,63 @@ export default {
       }
       this.testClick();
     },
-
+    // individual input error methods
+    // for name
     nameInputError(e) {
-      if (e.target.id === "name" && e.target.value.length <= 2) {
-        this.hasError = true;
+      if (e.target.value.length <= 2) {
+        this.errors.nameHasError = true;
         console.log(
           "name must contain more than 2 characters ",
           e.target.value.length,
-          this.hasError
+          this.errors.nameHasError
         );
       } else {
-        this.hasError = !this.hasError;
-        console.log(this.hasError);
+        this.errors.nameHasError = !this.errors.nameHasError;
+        console.log(this.errors.nameHasError);
       }
     },
+    // for email
+    emailInputError(e) {
+      if (!e.target.value.includes("@redberry.ge")) {
+        this.errors.emailHasError = true;
+        console.log(
+          "name must contain more than 2 characters ",
+          e.target.value.includes("@redberry.ge"),
+          this.errors.emailHasError
+        );
+      } else {
+        this.errors.emailHasError = !this.errors.emailHasError;
+        console.log(this.errors.emailHasError);
+      }
+    },
+    // for phone
+    phoneInputError(e) {
+      if (e.target.value.length !== 9) {
+        this.errors.phoneHasError = true;
+        console.log(
+          "name must contain more than 2 characters ",
+          e.target.value.length,
+          this.errors.phoneHasError
+        );
+      } else {
+        this.errors.phoneHasError = !this.errors.phoneHasError;
+        console.log(this.errors.phoneHasError);
+      }
+    },
+    dobInputError(e) {
+      if (e.target.value === "") {
+        this.errors.dobHasError = true;
+        console.log(
+          "name must contain more than 2 characters ",
+          e.target.value.includes("@redberry.ge"),
+          this.errors.dobHasError
+        );
+      } else {
+        this.errors.dobHasError = !this.errors.dobHasError;
+        console.log(this.errors.dobHasError);
+      }
+    },
+    // ---------------------
     testClick() {
       console.log(
         "name: ",
