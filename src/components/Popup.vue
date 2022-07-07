@@ -2,13 +2,16 @@
   <div class="popup">
     <div class="popup-inner">
       <slot />
-      <button class="popup-close">Close</button>
+      <button @click="action" class="popup-close">Close</button>
     </div>
   </div>
 </template>
 
 <script>
-export default { name: "PopUp" };
+export default {
+  name: "PopUp",
+  props: { action: { type: Function, required: true } },
+};
 </script>
 
 <style scoped>

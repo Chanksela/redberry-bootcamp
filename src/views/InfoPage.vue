@@ -4,12 +4,10 @@
     :quote="'WHEN YOU SEE A GOOD MOVE LOOK FOR A BETTER ONE'"
     :author="'EMANUEL LASKER'"
   />
-  <Popup v-if="errors.messages.nameErrorMessage !== ''">{{
+  <Popup v-if="errors.popupError" :action="action">{{
     errors.messages.nameErrorMessage
   }}</Popup>
-  <Popup v-if="errors.messages.emailErrorMesssage">{{
-    errors.messages.emailErrorMesssage
-  }}</Popup>
+
   <div class="right">
     <div class="right-header">
       <h6>Changable Header text</h6>
@@ -120,6 +118,7 @@ export default {
       },
       errors: {
         error: Boolean,
+        popupError: false,
         nameHasError: false,
         emailHasError: false,
         phoneHasError: false,
@@ -136,6 +135,9 @@ export default {
     };
   },
   methods: {
+    action() {
+      this.errors.popupError = !this.errors.popupError;
+    },
     // checking all erros when clickin next page
     checkError() {
       if (
@@ -156,17 +158,13 @@ export default {
     // individual input error methods
     // for name
     nameInputError(e) {
-      console.log(e.target.value);
       if (e.target.value.length <= 2 || e.target.value === "") {
+        this.errors.popupError = true;
         this.errors.nameHasError = true;
         this.errors.messages.nameErrorMessage =
           "Name must be longer than 2 characters";
-        console.log(
-          e.target.value,
-          e.target.value.length,
-          this.errors.nameHasError
-        );
       } else {
+        this.errors.popupError = false;
         this.errors.nameHasError = false;
         this.errors.messages.nameErrorMessage = "";
       }
