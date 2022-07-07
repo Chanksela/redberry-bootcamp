@@ -25,14 +25,17 @@
               incorrectName: errors.nameHasError,
               correctName: !errors.nameHasError,
             }"
-            v-model="name"
+            v-model="state.name"
             @change="nameInputError"
           /><sup class="required">*</sup>
+          <div v-if="errors.messages.nameErrorMessage">
+            {{ errors.messages.nameErrorMessage }}
+          </div>
         </div>
         <div>
           <input
             placeholder="Email address"
-            v-model="email"
+            v-model="state.email"
             type="email"
             id="email"
             :class="{
@@ -45,10 +48,9 @@
         <div>
           <input
             placeholder="Phone number"
-            v-model="phone"
+            v-model="state.phone"
             type="tel"
             id="tel"
-            pattern="[0-9]{3}[0-9]{3}[0-9]{3}"
             :class="{
               incorrectPhone: errors.phoneHasError,
               correctPhone: errors.phoneHasError,
@@ -59,7 +61,7 @@
         <div>
           <input
             placeholder="Date of birth"
-            v-model="date_of_birth"
+            v-model="state.date_of_birth"
             type="date"
             id="date"
             :class="{
@@ -78,7 +80,7 @@
         class="nxt-btn"
         @click="
           checkError();
-          error && $router.push('/experience');
+          errors.error && $router.push('/experience');
         "
       >
         Next
@@ -93,18 +95,26 @@ export default {
   components: { FormLeft },
   data() {
     return {
-      name: "",
-      email: "",
-      phone: "",
-      date_of_birth: "",
+      state: {
+        name: "",
+        email: "",
+        phone: "",
+        date_of_birth: "",
+      },
       errors: {
+        error: false,
         nameHasError: false,
         emailHasError: false,
         phoneHasError: false,
         dobHasError: false,
-        error: false,
         inputError: false,
-        errorMessage: "",
+        messages: {
+          errorMessage: "",
+          nameErrorMessage: "",
+          emailErrorMesssage: "",
+          phoneErrorMessage: "",
+          dobErrorMessage: "",
+        },
       },
     };
   },
@@ -112,15 +122,15 @@ export default {
     // checking all erros when clickin next page
     checkError() {
       if (
-        this.name.length <= 2 ||
-        !this.email.includes("@redberry.ge") ||
-        this.phone.length !== 9 ||
-        this.date_of_birth === ""
+        this.state.name.length <= 2 ||
+        !this.state.email.includes("@redberry.ge") ||
+        this.state.phone.length !== 9 ||
+        this.state.date_of_birth === ""
       ) {
-        this.errorMessage = "Please make sure you wrote all fields correctly";
-        alert(this.errorMessage);
+        this.errors.messages.errorMessage = "Please met every input requirment";
+        alert(this.errors.messages.errorMessage);
       } else {
-        this.error = true;
+        this.errors.error = true;
       }
       this.testClick();
     },
@@ -129,13 +139,11 @@ export default {
     nameInputError(e) {
       if (e.target.value.length <= 2) {
         this.errors.nameHasError = true;
-        console.log(
-          "name must contain more than 2 characters ",
-          e.target.value.length,
-          this.errors.nameHasError
-        );
+        this.errors.messages.nameErrorMessage =
+          "Name must be longer than 2 characters";
+        console.log(e.target.value.length, this.errors.nameHasError);
       } else {
-        this.errors.nameHasError = !this.errors.nameHasError;
+        this.errors.nameHasError = false;
         console.log(this.errors.nameHasError);
       }
     },
@@ -149,13 +157,13 @@ export default {
           this.errors.emailHasError
         );
       } else {
-        this.errors.emailHasError = !this.errors.emailHasError;
+        this.errors.emailHasError = false;
         console.log(this.errors.emailHasError);
       }
     },
     // for phone
     phoneInputError(e) {
-      if (e.target.value.length !== 9) {
+      if (e.target.value.length !== 9 || !/^\d+$/.test(e.target.value)) {
         this.errors.phoneHasError = true;
         console.log(
           "name must contain more than 2 characters ",
@@ -163,20 +171,16 @@ export default {
           this.errors.phoneHasError
         );
       } else {
-        this.errors.phoneHasError = !this.errors.phoneHasError;
+        this.errors.phoneHasError = false;
         console.log(this.errors.phoneHasError);
       }
     },
     dobInputError(e) {
       if (e.target.value === "") {
         this.errors.dobHasError = true;
-        console.log(
-          "name must contain more than 2 characters ",
-          e.target.value.includes("@redberry.ge"),
-          this.errors.dobHasError
-        );
+        console.log(e.target.value, this.errors.dobHasError);
       } else {
-        this.errors.dobHasError = !this.errors.dobHasError;
+        this.errors.dobHasError = false;
         console.log(this.errors.dobHasError);
       }
     },
@@ -184,14 +188,14 @@ export default {
     testClick() {
       console.log(
         "name: ",
-        this.name,
+        this.state.name,
         "email: ",
-        this.email,
+        this.state.email,
         "phone & phone length: ",
-        this.phone,
-        this.phone.length,
+        this.state.phone,
+        this.state.phone.length,
         "DOB: ",
-        this.date_of_birth.replace(/-/g, "/")
+        this.state.date_of_birth.replace(/-/g, "/")
       );
     },
   },
