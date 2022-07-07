@@ -16,33 +16,42 @@
         <p>This is basic informations field</p>
       </div>
       <div class="content">
-        <label for="name">Name</label>
-        <br />
-        <input v-model="name" type="text" id="name" />
-        <p>Name: {{ name }}</p>
-        <!-- <div v-if="nameError !== ''" class="error">{{ nameError }}</div> -->
-        <br />
-        <label for="email">Email</label>
-        <!-- <div v-if="emailError !== ''" class="error">{{ emailError }}</div> -->
-
-        <br />
-        <input v-model="email" type="email" id="email" />
-        <p>Email: {{ email }}</p>
-        <br />
-        <label for="tel">Phone Number</label>
-        <br />
-        <input
-          v-model="phone"
-          type="tel"
-          id="tel"
-          pattern="[0-9]{3}[0-9]{3}[0-9]{3}"
-        />
-        <p>Tel: {{ phone }}</p>
-        <br />
-        <label for="date">Date of birth</label>
-        <br />
-        <input v-model="date_of_birth" type="text" id="date" />
-        <p>DOB: {{ date_of_birth }}</p>
+        <div>
+          <input
+            placeholder="Name"
+            type="text"
+            id="name"
+            v-model="name"
+            @change="handleError"
+          /><sup class="required">*</sup>
+        </div>
+        <div>
+          <input
+            placeholder="Email address"
+            v-model="email"
+            type="email"
+            id="email"
+          /><sup class="required">*</sup>
+        </div>
+        <div>
+          <input
+            placeholder="Phone number"
+            v-model="phone"
+            type="tel"
+            id="tel"
+            pattern="[0-9]{3}[0-9]{3}[0-9]{3}"
+          /><sup class="required">*</sup>
+        </div>
+        <div>
+          <input
+            placeholder="Date of birth"
+            v-model="date_of_birth"
+            type="date"
+            id="date"
+            pattern="\d{4}/\d{2}/\d{2}\"
+          />
+          <sup class="required">*</sup>
+        </div>
       </div>
     </div>
     <div class="page-navigation">
@@ -50,7 +59,7 @@
       <button
         class="nxt-btn"
         @click="
-          test();
+          checkError();
           error && $router.push('/experience');
         "
       >
@@ -70,13 +79,14 @@ export default {
       email: "",
       phone: "",
       date_of_birth: "",
+      hasError: false,
       error: false,
-      nxtPg: "experience",
+      inputError: false,
       errorMessage: "",
     };
   },
   methods: {
-    test() {
+    checkError() {
       if (
         this.name.length <= 2 ||
         !this.email.includes("@redberry.ge") ||
@@ -88,6 +98,23 @@ export default {
       } else {
         this.error = true;
       }
+      this.testClick();
+    },
+
+    nameInputError(e) {
+      if (e.target.id === "name" && e.target.value.length <= 2) {
+        this.hasError = true;
+        console.log(
+          "name must contain more than 2 characters ",
+          e.target.value.length,
+          this.hasError
+        );
+      } else {
+        this.hasError = !this.hasError;
+        console.log(this.hasError);
+      }
+    },
+    testClick() {
       console.log(
         "name: ",
         this.name,
@@ -97,25 +124,18 @@ export default {
         this.phone,
         this.phone.length,
         "DOB: ",
-        this.date_of_birth
-      );
-    },
-
-    testClick() {
-      console.log(
-        "name: ",
-        this.name,
-        "email: ",
-        this.email,
-        "phone: ",
-        this.phone,
-        "dob: ",
-        this.date_of_birth,
-        "error: ",
-        this.error
+        this.date_of_birth.replace(/-/g, "/")
       );
     },
   },
 };
 </script>
-<style></style>
+<style scoped>
+.content {
+  display: flex;
+  flex-direction: column;
+}
+input {
+  width: 30%;
+}
+</style>

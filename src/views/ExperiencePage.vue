@@ -16,7 +16,9 @@
       </div>
       <div class="content">
         <div class="knowledge">
-          <label for="level">Level of knowledge</label><br />
+          <label for="level"
+            >Level of knowledge<sup class="required">*</sup></label
+          ><br />
           <select
             v-model="experience_level"
             name="level"
@@ -30,7 +32,9 @@
           <p>Level: {{ experience_level }}</p>
         </div>
         <div class="character">
-          <label for="character">Choose your character:</label><br />
+          <label for="character"
+            >Choose your character:<sup class="required">*</sup></label
+          ><br />
           <select
             v-model="character_id"
             name="character"
@@ -48,7 +52,12 @@
           <p>{{ character_id }}</p>
         </div>
         <div class="prev-participation">
-          <p>Have you participated In the Redberry Championship?</p>
+          <p>
+            Have you participated In the Redberry Championship?<sup
+              class="required"
+              >*</sup
+            >
+          </p>
           <input
             v-model="already_participated"
             type="radio"

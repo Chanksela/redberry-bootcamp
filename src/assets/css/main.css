@@ -9,6 +9,13 @@ button {
   border: none;
   cursor: pointer;
 }
+input {
+  border-left: none;
+  border-right: none;
+  border-top: none;
+  border-bottom: 1px solid black;
+  outline: none;
+}
 .nxt-btn {
   background-color: black;
   color: white;
@@ -20,6 +27,21 @@ button {
 }
 .prv-btn {
   background-color: white;
+  color: black;
+}
+.required {
+  color: red;
+}
+.default {
+  background-color: white;
+  color: black;
+}
+.error {
+  background-color: rgba(255, 0, 0, 0.4);
+  color: red;
+}
+.correct {
+  background-color: rgba(0, 255, 0, 0.4);
   color: black;
 }
 
