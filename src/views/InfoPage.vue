@@ -28,7 +28,7 @@
             v-model="state.name"
             @change="nameInputError"
           /><sup class="required">*</sup>
-          <div v-if="errors.messages.nameErrorMessage">
+          <div v-if="errors.messages.nameErrorMessage" class="errorMsg">
             {{ errors.messages.nameErrorMessage }}
           </div>
         </div>
@@ -44,6 +44,9 @@
             }"
             @change="emailInputError"
           /><sup class="required">*</sup>
+          <div v-if="errors.messages.emailErrorMesssage" class="errorMsg">
+            {{ errors.messages.emailErrorMesssage }}
+          </div>
         </div>
         <div>
           <input
@@ -57,6 +60,9 @@
             }"
             @change="phoneInputError"
           /><sup class="required">*</sup>
+          <div v-if="errors.messages.phoneErrorMessage" class="errorMsg">
+            {{ errors.messages.phoneErrorMessage }}
+          </div>
         </div>
         <div>
           <input
@@ -70,7 +76,11 @@
             }"
             @change="dobInputError"
           />
+
           <sup class="required">*</sup>
+          <div v-if="errors.messages.dobErrorMessage" class="errorMsg">
+            {{ errors.messages.dobErrorMessage }}
+          </div>
         </div>
       </div>
     </div>
@@ -127,7 +137,8 @@ export default {
         this.state.phone.length !== 9 ||
         this.state.date_of_birth === ""
       ) {
-        this.errors.messages.errorMessage = "Please met every input requirment";
+        this.errors.messages.errorMessage =
+          "Please fill every input and follow their requirments";
         alert(this.errors.messages.errorMessage);
       } else {
         this.errors.error = true;
@@ -144,44 +155,40 @@ export default {
         console.log(e.target.value.length, this.errors.nameHasError);
       } else {
         this.errors.nameHasError = false;
-        console.log(this.errors.nameHasError);
+        this.errors.messages.nameErrorMessage = "";
       }
     },
     // for email
     emailInputError(e) {
       if (!e.target.value.includes("@redberry.ge")) {
         this.errors.emailHasError = true;
-        console.log(
-          "name must contain more than 2 characters ",
-          e.target.value.includes("@redberry.ge"),
-          this.errors.emailHasError
-        );
+        this.errors.messages.emailErrorMesssage =
+          "Email must end with @redberry.ge";
       } else {
         this.errors.emailHasError = false;
-        console.log(this.errors.emailHasError);
+        this.errors.messages.emailErrorMesssage = "";
       }
     },
     // for phone
     phoneInputError(e) {
       if (e.target.value.length !== 9 || !/^\d+$/.test(e.target.value)) {
         this.errors.phoneHasError = true;
-        console.log(
-          "name must contain more than 2 characters ",
-          e.target.value.length,
-          this.errors.phoneHasError
-        );
+        this.errors.messages.phoneErrorMessage =
+          "Phone number must only have 9 numbers (numbers only)";
       } else {
         this.errors.phoneHasError = false;
-        console.log(this.errors.phoneHasError);
+        this.errors.messages.phoneErrorMessage = "";
       }
     },
     dobInputError(e) {
       if (e.target.value === "") {
         this.errors.dobHasError = true;
-        console.log(e.target.value, this.errors.dobHasError);
+        this.errors.messages.dobErrorMessage =
+          "Plese indicate full date of birth";
+        console.log(e.target.pattern);
       } else {
         this.errors.dobHasError = false;
-        console.log(this.errors.dobHasError);
+        this.errors.messages.dobErrorMessage = "";
       }
     },
     // ---------------------

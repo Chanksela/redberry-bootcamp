@@ -112,7 +112,7 @@ export default {
   mounted() {
     fetch("https://chess-tournament-api.devtest.ge/api/grandmasters")
       .then((res) => res.json())
-      .then((data) => (this.characters = data))
+      .then((data) => ((this.characters = data), console.log(data)))
       .catch((err) => console.log(err.message));
   },
 };
