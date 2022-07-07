@@ -20,10 +20,10 @@
         <br />
         <input v-model="name" type="text" id="name" />
         <p>Name: {{ name }}</p>
-        <div v-if="nameError !== ''" class="error">{{ nameError }}</div>
+        <!-- <div v-if="nameError !== ''" class="error">{{ nameError }}</div> -->
         <br />
         <label for="email">Email</label>
-        <div v-if="emailError !== ''" class="error">{{ emailError }}</div>
+        <!-- <div v-if="emailError !== ''" class="error">{{ emailError }}</div> -->
 
         <br />
         <input v-model="email" type="email" id="email" />
@@ -31,7 +31,12 @@
         <br />
         <label for="tel">Phone Number</label>
         <br />
-        <input v-model="phone" type="tel" id="tel" />
+        <input
+          v-model="phone"
+          type="tel"
+          id="tel"
+          pattern="[0-9]{3}[0-9]{3}[0-9]{3}"
+        />
         <p>Tel: {{ phone }}</p>
         <br />
         <label for="date">Date of birth</label>
@@ -41,8 +46,7 @@
       </div>
     </div>
     <div class="page-navigation">
-      <router-link class="prv-btn" to="/">Back</router-link>
-      <!-- <router-link @click="testClick" to="/experience">Next</router-link> -->
+      <button class="prv-btn" @click="$router.push('/')">Back</button>
       <button
         class="nxt-btn"
         @click="
@@ -68,26 +72,35 @@ export default {
       date_of_birth: "",
       error: false,
       nxtPg: "experience",
-      nameError: "",
-      emailError: "",
+      errorMessage: "",
     };
   },
   methods: {
     test() {
-      if (!this.email.includes("@")) {
-        this.emailError = "wrong email type";
-      } else if (this.name.length <= 2) {
-        this.nameError = "name must be longer than 2 character";
+      if (
+        this.name.length <= 2 ||
+        !this.email.includes("@redberry.ge") ||
+        this.phone.length !== 9 ||
+        this.date_of_birth === ""
+      ) {
+        this.errorMessage = "Please make sure you wrote all fields correctly";
+        alert(this.errorMessage);
       } else {
         this.error = true;
-        this.nameError = "";
       }
-      console.log(this.error, this.nameError, this.emailError);
+      console.log(
+        "name: ",
+        this.name,
+        "email: ",
+        this.email,
+        "phone & phone length: ",
+        this.phone,
+        this.phone.length,
+        "DOB: ",
+        this.date_of_birth
+      );
     },
-    // ||
-    // !this.email.includes("@") ||
-    // this.phone.length !== 9 ||
-    // this.date_of_birth == ""
+
     testClick() {
       console.log(
         "name: ",
