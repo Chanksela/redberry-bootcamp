@@ -29,9 +29,10 @@
               incorrectName: errors.nameHasError,
               correctName: !errors.nameHasError,
             }"
-            v-model="state.name"
+            v-model="$store.state.name"
             @change="nameInputError"
           /><sup class="required">*</sup>
+          {{ $store.state.name }}
           <div v-if="errors.messages.nameErrorMessage" class="errorMsg">
             {{ errors.messages.nameErrorMessage }}
           </div>
