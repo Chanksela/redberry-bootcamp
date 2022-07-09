@@ -1,10 +1,10 @@
 <template>
   <div class="dropdown">
-    <p @click="dropDown" class="text">Choose your character</p>
+    <p @click="$store.commit('dropDown')" class="text">Choose your character</p>
     <div
       :class="{
-        show: dropped,
-        hide: !dropped,
+        show: $store.state.errors.dropped,
+        hide: !$store.state.errors.dropped,
       }"
     >
       <div
@@ -12,7 +12,7 @@
         v-for="character in characters"
         :key="character.id"
         :id="character.id"
-        @click="characterSelect"
+        @click="$store.commit('characterSelect')"
       >
         <p>{{ character.name }}</p>
         <img
@@ -30,24 +30,14 @@ export default {
   data() {
     return {
       characters: [],
-      dropped: false,
-      state: { character_id: "" },
     };
   },
+
   mounted() {
     fetch("https://chess-tournament-api.devtest.ge/api/grandmasters")
       .then((res) => res.json())
       .then((data) => ((this.characters = data), console.log(data)))
       .catch((err) => console.log(err.message));
-  },
-  methods: {
-    dropDown() {
-      this.dropped = !this.dropped;
-    },
-    characterSelect(e) {
-      console.log(e.target.id);
-      this.dropped = !this.dropped;
-    },
   },
 };
 </script>

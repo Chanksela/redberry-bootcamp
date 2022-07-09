@@ -7,7 +7,6 @@
   <Popup v-if="$store.state.errors.popupError">{{
     $store.state.errors.messages.nameErrorMessage
   }}</Popup>
-
   <div class="right">
     <div class="right-header">
       <h6>Changable Header text</h6>
@@ -22,6 +21,7 @@
       <div class="content">
         <!-- name field -->
         <div>
+          {{ $store.state.experience_level }}
           <input
             placeholder="Name"
             type="text"

@@ -20,7 +20,7 @@
             >Level of knowledge<sup class="required">*</sup></label
           ><br />
           <select
-            v-model="state.experience_level"
+            v-model="$store.state.experience_level"
             name="level"
             id="level"
             form="knowledgelvl"
@@ -41,7 +41,7 @@
             >
           </p>
           <input
-            v-model="state.already_participated"
+            v-model="$store.state.already_participated"
             type="radio"
             id="yes"
             name="participated"
@@ -49,7 +49,7 @@
           />
           <label for="yes">Yes</label><br />
           <input
-            v-model="state.already_participated"
+            v-model="$store.state.already_participated"
             type="radio"
             id="no"
             name="participated"
@@ -61,7 +61,7 @@
     </div>
     <div class="page-navigation">
       <router-link class="prv-btn" to="/info">Back</router-link>
-      <button class="nxt-btn" @click="finish">Done</button>
+      <button class="nxt-btn" @click="$store.commit('finish')">Done</button>
     </div>
   </div>
 </template>
@@ -72,34 +72,6 @@ import CustomDropdown from "@/components/CustomDropdown.vue";
 export default {
   name: "ExperiencePage",
   components: { FormLeft, CustomDropdown },
-  data() {
-    return {
-      characters: [],
-      state: {
-        experience_level: "",
-        already_participated: "",
-        character_id: "",
-      },
-    };
-  },
-  methods: {
-    finish() {
-      console.log(
-        "experience: ",
-        this.state.experience_level,
-        "previous participation: ",
-        this.state.already_participated,
-        "charachter_id: ",
-        this.state.character_id
-      );
-    },
-  },
-  mounted() {
-    fetch("https://chess-tournament-api.devtest.ge/api/grandmasters")
-      .then((res) => res.json())
-      .then((data) => ((this.characters = data), console.log(data)))
-      .catch((err) => console.log(err.message));
-  },
 };
 </script>
 <style scoped>

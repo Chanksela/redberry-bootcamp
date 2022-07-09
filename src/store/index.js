@@ -1,10 +1,15 @@
 import { createStore } from "vuex";
+import axios from "axios";
 export default createStore({
   state: {
     characters: [],
     name: "",
+    phone: "",
     email: "",
     date_of_birth: "",
+    experience_level: "",
+    already_participated: "",
+    character_id: "",
     errors: {
       error: Boolean,
       popupError: false,
@@ -13,6 +18,7 @@ export default createStore({
       phoneHasError: false,
       dobHasError: false,
       inputError: false,
+      dropped: false,
       messages: {
         errorMessage: "",
         nameErrorMessage: "",
@@ -87,10 +93,8 @@ export default createStore({
       } else {
         state.errors.error = true;
       }
-      // this.store.testClick();
-    },
-    // ---------------------
-    testClick(state) {
+      state.date_of_birth = state.date_of_birth.replace(/-/g, "/");
+
       console.log(
         "name: ",
         state.name,
@@ -98,17 +102,63 @@ export default createStore({
         state.email,
         "phone & phone length: ",
         state.phone,
-        state.phone.length,
         "DOB: ",
-        state.date_of_birth.replace(/-/g, "/")
+        state.date_of_birth,
+        "experience: ",
+        state.experience_level,
+        "previous participation: ",
+        state.already_participated,
+        "charachter_id: ",
+        state.character_id
       );
     },
+    // ---------------------
+
     // ----------------------
     action(state) {
       state.errors.popupError = !state.errors.popupError;
     },
+    // fetch api ata
+    setCharacters(state, characters) {
+      state.characters = characters;
+    },
+    // finish form
+    finish(state) {
+      state.date_of_birth = state.date_of_birth.replace(/-/g, "/");
+      console.log(
+        "name: ",
+        state.name,
+        "email: ",
+        state.email,
+        "phone & phone length: ",
+        state.phone,
+        "DOB: ",
+        state.date_of_birth,
+        "experience: ",
+        state.experience_level,
+        "previous participation: ",
+        state.already_participated,
+        "charachter_id: ",
+        state.character_id
+      );
+    },
+    // custom dropdown
+    dropDown(state) {
+      state.errors.dropped = !state.errors.dropped;
+    },
+
+    characterSelect(state) {
+      state.errors.dropped = !state.errors.dropped;
+      console.log(state.character_id);
+    },
   },
-  actions: {},
+  actions: {
+    fetchCharacters({ commit }) {
+      axios("https://chess-tournament-api.devtest.ge/api/grandmasters").then(
+        (res) => commit("setCharacters", res.data)
+      );
+    },
+  },
   getters: {},
   modules: {},
 });
