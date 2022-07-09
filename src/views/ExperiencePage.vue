@@ -31,33 +31,8 @@
             <option value="professional">Professional</option>
           </select>
         </div>
-        <div class="character">
-          <label for="character"
-            >Choose your character:<sup class="required">*</sup></label
-          ><br />
-          <select
-            v-model="state.character_id"
-            name="character"
-            id="character"
-            form="character"
-            placeholder="test"
-          >
-            <option value="" disabled selected>Choose your character</option>
-            <option
-              v-for="character in characters"
-              v-bind:key="character.id"
-              v-bind:value="character.id"
-            >
-              <img
-                :src="
-                  'https://chess-tournament-api.devtest.ge' + character.image
-                "
-              />
-              {{ character.name }}
-            </option>
-          </select>
-        </div>
         <CustomDropdown />
+
         <div class="prev-participation">
           <p>
             Have you participated In the Redberry Championship?<sup
@@ -130,5 +105,11 @@ export default {
 <style scoped>
 img {
   width: 50px;
+}
+.knowledge {
+  max-width: 30%;
+}
+.knowledge > select {
+  width: 80%;
 }
 </style>
