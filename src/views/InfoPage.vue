@@ -20,6 +20,7 @@
         <p>This is basic informations field</p>
       </div>
       <div class="content">
+        <!-- name field -->
         <div>
           <input
             placeholder="Name"
@@ -39,6 +40,7 @@
             {{ $store.state.errors.messages.nameErrorMessage }}
           </div>
         </div>
+        <!-- email field -->
         <div>
           <input
             placeholder="Email address"
@@ -58,20 +60,24 @@
             {{ $store.state.errors.messages.emailErrorMesssage }}
           </div>
         </div>
+        <!-- phone field -->
         <div>
           <input
             placeholder="Phone number"
-            v-model="state.phone"
+            v-model="$store.state.phone"
             type="tel"
             id="tel"
             :class="{
-              incorrectPhone: errors.phoneHasError,
-              correctPhone: errors.phoneHasError,
+              incorrectPhone: $store.state.errors.phoneHasError,
+              correctPhone: $store.state.errors.phoneHasError,
             }"
-            @change="phoneInputError"
+            @change="$store.commit('phoneInputError')"
           /><sup class="required">*</sup>
-          <div v-if="errors.messages.phoneErrorMessage" class="errorMsg">
-            {{ errors.messages.phoneErrorMessage }}
+          <div
+            v-if="$store.state.errors.messages.phoneErrorMessage"
+            class="errorMsg"
+          >
+            {{ $store.state.errors.messages.phoneErrorMessage }}
           </div>
         </div>
         <div>
@@ -160,18 +166,7 @@ export default {
       }
       this.testClick();
     },
-
-    // for phone
-    phoneInputError(e) {
-      if (e.target.value.length !== 9 || !/^\d+$/.test(e.target.value)) {
-        this.errors.phoneHasError = true;
-        this.errors.messages.phoneErrorMessage =
-          "Phone number must only have 9 numbers (numbers only)";
-      } else {
-        this.errors.phoneHasError = false;
-        this.errors.messages.phoneErrorMessage = "";
-      }
-    },
+    // for DOB
     dobInputError(e) {
       if (e.target.value === "") {
         this.errors.dobHasError = true;

@@ -49,6 +49,18 @@ export default createStore({
         state.errors.messages.emailErrorMesssage = "";
       }
     },
+
+    // for phone
+    phoneInputError(state) {
+      if (state.phone.length !== 9 || !/^\d+$/.test(state.phone)) {
+        state.errors.phoneHasError = true;
+        state.errors.messages.phoneErrorMessage =
+          "Phone number must only have 9 numbers (numbers only)";
+      } else {
+        state.errors.phoneHasError = false;
+        state.errors.messages.phoneErrorMessage = "";
+      }
+    },
   },
   actions: {},
   getters: {},
