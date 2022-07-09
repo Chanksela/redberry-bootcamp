@@ -2,7 +2,9 @@
   <div class="popup">
     <div class="popup-inner">
       <slot />
-      <button @click="action" class="popup-close">Close</button>
+      <button @click="$store.commit('action')" class="popup-close">
+        Close
+      </button>
     </div>
   </div>
 </template>
@@ -10,7 +12,6 @@
 <script>
 export default {
   name: "PopUp",
-  props: { action: { type: Function, required: true } },
 };
 </script>
 

@@ -72,6 +72,41 @@ export default createStore({
         state.errors.messages.dobErrorMessage = "";
       }
     },
+    // checking all erros when clickin next page
+    checkError(state) {
+      if (
+        state.name.length <= 2 ||
+        !state.email.includes("@redberry.ge") ||
+        state.phone.length !== 9 ||
+        state.date_of_birth === ""
+      ) {
+        state.errors.error = false;
+        state.errors.messages.errorMessage =
+          "Please fill every input and follow their requirments";
+        alert(state.errors.messages.errorMessage);
+      } else {
+        state.errors.error = true;
+      }
+      // this.store.testClick();
+    },
+    // ---------------------
+    testClick(state) {
+      console.log(
+        "name: ",
+        state.name,
+        "email: ",
+        state.email,
+        "phone & phone length: ",
+        state.phone,
+        state.phone.length,
+        "DOB: ",
+        state.date_of_birth.replace(/-/g, "/")
+      );
+    },
+    // ----------------------
+    action(state) {
+      state.errors.popupError = !state.errors.popupError;
+    },
   },
   actions: {},
   getters: {},

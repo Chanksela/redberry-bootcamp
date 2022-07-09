@@ -4,8 +4,8 @@
     :quote="'WHEN YOU SEE A GOOD MOVE LOOK FOR A BETTER ONE'"
     :author="'EMANUEL LASKER'"
   />
-  <Popup v-if="errors.popupError" :action="action">{{
-    errors.messages.nameErrorMessage
+  <Popup v-if="$store.state.errors.popupError">{{
+    $store.state.errors.messages.nameErrorMessage
   }}</Popup>
 
   <div class="right">
@@ -109,8 +109,8 @@
       <button
         class="nxt-btn"
         @click="
-          checkError();
-          errors.error && $router.push('/experience');
+          $store.commit('checkError');
+          $store.state.errors.error && $router.push('/experience');
         "
       >
         Next
@@ -124,63 +124,6 @@ import Popup from "../components/Popup.vue";
 export default {
   name: "InfoPage",
   components: { FormLeft, Popup },
-  data() {
-    return {
-      errors: {
-        error: Boolean,
-        popupError: false,
-        nameHasError: false,
-        emailHasError: false,
-        phoneHasError: false,
-        dobHasError: false,
-        inputError: false,
-        messages: {
-          errorMessage: "",
-          nameErrorMessage: "",
-          emailErrorMesssage: "",
-          phoneErrorMessage: "",
-          dobErrorMessage: "",
-        },
-      },
-    };
-  },
-  methods: {
-    action() {
-      this.errors.popupError = !this.errors.popupError;
-    },
-    // checking all erros when clickin next page
-    checkError() {
-      if (
-        this.state.name.length <= 2 ||
-        !this.state.email.includes("@redberry.ge") ||
-        this.state.phone.length !== 9 ||
-        this.state.date_of_birth === ""
-      ) {
-        this.errors.error = false;
-        this.errors.messages.errorMessage =
-          "Please fill every input and follow their requirments";
-        alert(this.errors.messages.errorMessage);
-      } else {
-        this.errors.error = true;
-      }
-      this.testClick();
-    },
-
-    // ---------------------
-    testClick() {
-      console.log(
-        "name: ",
-        this.$store.state.name,
-        "email: ",
-        this.state.email,
-        "phone & phone length: ",
-        this.state.phone,
-        this.state.phone.length,
-        "DOB: ",
-        this.state.date_of_birth.replace(/-/g, "/")
-      );
-    },
-  },
 };
 </script>
 <style scoped>
