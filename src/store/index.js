@@ -61,6 +61,17 @@ export default createStore({
         state.errors.messages.phoneErrorMessage = "";
       }
     },
+    // for DOB
+    dobInputError(state) {
+      if (state.date_of_birth === "") {
+        state.errors.dobHasError = true;
+        state.errors.messages.dobErrorMessage =
+          "Plese indicate full date of birth";
+      } else {
+        state.errors.dobHasError = false;
+        state.errors.messages.dobErrorMessage = "";
+      }
+    },
   },
   actions: {},
   getters: {},

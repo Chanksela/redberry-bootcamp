@@ -69,7 +69,7 @@
             id="tel"
             :class="{
               incorrectPhone: $store.state.errors.phoneHasError,
-              correctPhone: $store.state.errors.phoneHasError,
+              correctPhone: !$store.state.errors.phoneHasError,
             }"
             @change="$store.commit('phoneInputError')"
           /><sup class="required">*</sup>
@@ -80,22 +80,26 @@
             {{ $store.state.errors.messages.phoneErrorMessage }}
           </div>
         </div>
+        <!-- DOB field -->
         <div>
           <input
             placeholder="Date of birth"
-            v-model="state.date_of_birth"
+            v-model="$store.state.date_of_birth"
             type="date"
             id="date"
             :class="{
-              incorrectDOB: errors.dobHasError,
-              correctDOB: errors.dobHasError,
+              incorrectDOB: $store.state.errors.dobHasError,
+              correctDOB: !$store.state.errors.dobHasError,
             }"
-            @change="dobInputError"
+            @change="$store.commit('dobInputError')"
           />
 
           <sup class="required">*</sup>
-          <div v-if="errors.messages.dobErrorMessage" class="errorMsg">
-            {{ errors.messages.dobErrorMessage }}
+          <div
+            v-if="$store.state.errors.messages.dobErrorMessage"
+            class="errorMsg"
+          >
+            {{ $store.state.errors.messages.dobErrorMessage }}
           </div>
         </div>
       </div>
@@ -122,11 +126,6 @@ export default {
   components: { FormLeft, Popup },
   data() {
     return {
-      state: {
-        email: "",
-        phone: "",
-        date_of_birth: "",
-      },
       errors: {
         error: Boolean,
         popupError: false,
@@ -166,18 +165,7 @@ export default {
       }
       this.testClick();
     },
-    // for DOB
-    dobInputError(e) {
-      if (e.target.value === "") {
-        this.errors.dobHasError = true;
-        this.errors.messages.dobErrorMessage =
-          "Plese indicate full date of birth";
-        console.log(e.target.pattern);
-      } else {
-        this.errors.dobHasError = false;
-        this.errors.messages.dobErrorMessage = "";
-      }
-    },
+
     // ---------------------
     testClick() {
       console.log(
