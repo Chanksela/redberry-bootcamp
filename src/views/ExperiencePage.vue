@@ -20,37 +20,44 @@
             >Level of knowledge<sup class="required">*</sup></label
           ><br />
           <select
-            v-model="experience_level"
+            v-model="state.experience_level"
             name="level"
             id="level"
             form="knowledgelvl"
           >
+            <option value="" disabled selected>Level of knowledge</option>
             <option value="beginner">Beginner</option>
             <option value="intermediate">Intermediate</option>
             <option value="professional">Professional</option>
           </select>
-          <p>Level: {{ experience_level }}</p>
         </div>
         <div class="character">
           <label for="character"
             >Choose your character:<sup class="required">*</sup></label
           ><br />
           <select
-            v-model="character_id"
+            v-model="state.character_id"
             name="character"
             id="character"
             form="character"
+            placeholder="test"
           >
+            <option value="" disabled selected>Choose your character</option>
             <option
               v-for="character in characters"
               v-bind:key="character.id"
               v-bind:value="character.id"
             >
+              <img
+                :src="
+                  'https://chess-tournament-api.devtest.ge' + character.image
+                "
+              />
               {{ character.name }}
             </option>
           </select>
-          <p>{{ character_id }}</p>
         </div>
+        <CustomDropdown />
         <div class="prev-participation">
           <p>
             Have you participated In the Redberry Championship?<sup
@@ -59,7 +66,7 @@
             >
           </p>
           <input
-            v-model="already_participated"
+            v-model="state.already_participated"
             type="radio"
             id="yes"
             name="participated"
@@ -67,14 +74,13 @@
           />
           <label for="yes">Yes</label><br />
           <input
-            v-model="already_participated"
+            v-model="state.already_participated"
             type="radio"
             id="no"
             name="participated"
             v-bind:value="false"
           />
           <label for="no">No</label><br />
-          <p>{{ already_participated }}</p>
         </div>
       </div>
     </div>
@@ -86,26 +92,30 @@
 </template>
 <script>
 import FormLeft from "@/components/FormLeft.vue";
+import CustomDropdown from "@/components/CustomDropdown.vue";
+
 export default {
   name: "ExperiencePage",
-  components: { FormLeft },
+  components: { FormLeft, CustomDropdown },
   data() {
     return {
       characters: [],
-      experience_level: "",
-      already_participated: "",
-      character_id: "",
+      state: {
+        experience_level: "",
+        already_participated: "",
+        character_id: "",
+      },
     };
   },
   methods: {
     finish() {
       console.log(
         "experience: ",
-        this.experience_level,
+        this.state.experience_level,
         "previous participation: ",
-        this.already_participated,
+        this.state.already_participated,
         "charachter_id: ",
-        this.character_id
+        this.state.character_id
       );
     },
   },
@@ -117,4 +127,8 @@ export default {
   },
 };
 </script>
-<style></style>
+<style scoped>
+img {
+  width: 50px;
+}
+</style>
