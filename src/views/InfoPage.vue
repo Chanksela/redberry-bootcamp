@@ -42,17 +42,20 @@
         <div>
           <input
             placeholder="Email address"
-            v-model="state.email"
+            v-model="$store.state.email"
             type="email"
             id="email"
             :class="{
-              incorrectEmail: errors.emailHasError,
-              correctEmail: errors.emailHasError,
+              incorrectEmail: $store.state.errors.emailHasError,
+              correctEmail: $store.state.errors.emailHasError,
             }"
-            @change="emailInputError"
+            @change="$store.commit('emailInputError')"
           /><sup class="required">*</sup>
-          <div v-if="errors.messages.emailErrorMesssage" class="errorMsg">
-            {{ errors.messages.emailErrorMesssage }}
+          <div
+            v-if="$store.state.errors.messages.emailErrorMesssage"
+            class="errorMsg"
+          >
+            {{ $store.state.errors.messages.emailErrorMesssage }}
           </div>
         </div>
         <div>
@@ -157,31 +160,7 @@ export default {
       }
       this.testClick();
     },
-    // individual input error methods
-    // for name
-    nameInputError(e) {
-      if (e.target.value.length <= 2 || e.target.value === "") {
-        this.errors.popupError = true;
-        this.errors.nameHasError = true;
-        this.errors.messages.nameErrorMessage =
-          "Name must be longer than 2 characters";
-      } else {
-        this.errors.popupError = false;
-        this.errors.nameHasError = false;
-        this.errors.messages.nameErrorMessage = "";
-      }
-    },
-    // for email
-    emailInputError(e) {
-      if (!e.target.value.includes("@redberry.ge")) {
-        this.errors.emailHasError = true;
-        this.errors.messages.emailErrorMesssage =
-          "Email must end with @redberry.ge";
-      } else {
-        this.errors.emailHasError = false;
-        this.errors.messages.emailErrorMesssage = "";
-      }
-    },
+
     // for phone
     phoneInputError(e) {
       if (e.target.value.length !== 9 || !/^\d+$/.test(e.target.value)) {
@@ -208,7 +187,7 @@ export default {
     testClick() {
       console.log(
         "name: ",
-        this.state.name,
+        this.$store.state.name,
         "email: ",
         this.state.email,
         "phone & phone length: ",
