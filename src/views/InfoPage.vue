@@ -26,15 +26,17 @@
             type="text"
             id="name"
             :class="{
-              incorrectName: errors.nameHasError,
-              correctName: !errors.nameHasError,
+              incorrectName: $store.state.errors.nameHasError,
+              correctName: !$store.state.errors.nameHasError,
             }"
             v-model="$store.state.name"
-            @change="nameInputError"
+            @change="$store.commit('nameInputError')"
           /><sup class="required">*</sup>
-          {{ $store.state.name }}
-          <div v-if="errors.messages.nameErrorMessage" class="errorMsg">
-            {{ errors.messages.nameErrorMessage }}
+          <div
+            v-if="$store.state.errors.messages.nameErrorMessage"
+            class="errorMsg"
+          >
+            {{ $store.state.errors.messages.nameErrorMessage }}
           </div>
         </div>
         <div>
@@ -112,7 +114,6 @@ export default {
   data() {
     return {
       state: {
-        name: "",
         email: "",
         phone: "",
         date_of_birth: "",
