@@ -1,5 +1,8 @@
 <template>
   <div class="dropdown">
+    <h1>
+      {{ $store.state.character_id }}
+    </h1>
     <p @click="$store.commit('dropDown')" class="text">Choose your character</p>
     <div
       :class="{
@@ -8,11 +11,11 @@
       }"
     >
       <div
-        class="dropdown-option"
         v-for="character in characters"
         :key="character.id"
         :id="character.id"
-        @click="$store.commit('characterSelect')"
+        @click="test"
+        class="dropdown-option"
       >
         <p>{{ character.name }}</p>
         <img
@@ -24,19 +27,34 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
   name: "CustomDropdown",
 
   data() {
     return {
       characters: [],
+      id: "",
     };
   },
 
+  methods: {
+    test(e) {
+      this.id = e.target.id;
+      this.$store.state.character_id = e.target.id;
+      console.log(
+        "id: ",
+        this.id,
+        "store id: ",
+        this.$store.state.character_id
+      );
+      // console.log("text: ", this.text);
+    },
+  },
   mounted() {
-    fetch("https://chess-tournament-api.devtest.ge/api/grandmasters")
-      .then((res) => res.json())
-      .then((data) => ((this.characters = data), console.log(data)))
+    axios
+      .get("https://chess-tournament-api.devtest.ge/api/grandmasters")
+      .then((res) => ((this.characters = res.data), console.log(res.data)))
       .catch((err) => console.log(err.message));
   },
 };
@@ -66,7 +84,7 @@ img {
   max-width: 100%;
 }
 .dropdown-option {
-  background-color: red;
+  /* background-color: red; */
   border: green solid 1px;
   max-width: 100%;
   display: flex;
@@ -78,4 +96,8 @@ img {
 img {
   pointer-events: none;
 }
+/* .button {
+  padding: 20px;
+  background-color: black;
+} */
 </style>

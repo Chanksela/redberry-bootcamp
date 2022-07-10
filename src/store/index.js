@@ -1,5 +1,5 @@
-import { createStore } from "vuex";
 import axios from "axios";
+import { createStore } from "vuex";
 export default createStore({
   state: {
     characters: [],
@@ -93,7 +93,6 @@ export default createStore({
       } else {
         state.errors.error = true;
       }
-      state.date_of_birth = state.date_of_birth.replace(/-/g, "/");
 
       console.log(
         "name: ",
@@ -118,10 +117,7 @@ export default createStore({
     action(state) {
       state.errors.popupError = !state.errors.popupError;
     },
-    // fetch api ata
-    setCharacters(state, characters) {
-      state.characters = characters;
-    },
+
     // finish form
     finish(state) {
       state.date_of_birth = state.date_of_birth.replace(/-/g, "/");
@@ -151,12 +147,17 @@ export default createStore({
       state.errors.dropped = !state.errors.dropped;
       console.log(state.character_id);
     },
+    setCharacters(state, characters) {
+      state.characters = characters;
+    },
   },
   actions: {
-    fetchCharacters({ commit }) {
-      axios("https://chess-tournament-api.devtest.ge/api/grandmasters").then(
-        (res) => commit("setCharacters", res.data)
-      );
+    getCharacters({ commit }) {
+      axios("https://chess-tournament-api.devtest.ge/api/grandmasters")
+        .then((res) => {
+          commit("setCharacters", res.data);
+        })
+        .catch((err) => console.log(err));
     },
   },
   getters: {},
