@@ -1,10 +1,11 @@
 <template>
   <div class="dropdown">
-    <h1>
-      {{ $store.state.character_id }}
-    </h1>
     <p @click="$store.commit('dropDown')" class="text">
-      Choose your character
+      {{
+        $store.state.character_id == null
+          ? "Choose your character"
+          : $store.state.character_id
+      }}
       <sup class="required">*</sup>
     </p>
     <div
@@ -20,7 +21,9 @@
         @click="test"
         class="dropdown-option"
       >
-        <p>{{ character.name }}</p>
+        <p @click="$store.commit('characterInputError')">
+          {{ character.name }}
+        </p>
         <img
           :src="'https://chess-tournament-api.devtest.ge' + character.image"
         />
@@ -36,15 +39,18 @@ export default {
 
   data() {
     return {
-      characters: [],
+      characters: null,
       id: "",
+      name: "",
     };
   },
 
   methods: {
     test(e) {
+      console.log(this.name);
       this.id = e.target.id;
-      this.$store.state.character_id = e.target.id;
+      localStorage.setItem("character", e.target.id);
+      this.$store.state.character_id = localStorage.getItem("character");
       this.$store.state.errors.dropped = !this.$store.state.errors.dropped;
       console.log(
         "id: ",
@@ -52,6 +58,8 @@ export default {
         "store id: ",
         this.$store.state.character_id
       );
+      this.name = this.characters.map((character) => character);
+      console.log(this.characters);
       // console.log("text: ", this.text);
     },
   },

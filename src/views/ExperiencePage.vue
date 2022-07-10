@@ -21,6 +21,7 @@
             name="level"
             id="level"
             form="knowledgelvl"
+            @click="$store.commit('expInputError')"
           >
             <option value="" disabled selected>
               Level of knowledge<sup class="required">*</sup>
@@ -40,6 +41,7 @@
             >
           </p>
           <input
+            @click="$store.commit('participationInputError')"
             v-model="$store.state.already_participated"
             type="radio"
             id="yes"
@@ -48,6 +50,7 @@
           />
           <label for="yes">Yes</label><br />
           <input
+            @click="$store.commit('participationInputError')"
             v-model="$store.state.already_participated"
             type="radio"
             id="no"

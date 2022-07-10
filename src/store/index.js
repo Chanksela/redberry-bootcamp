@@ -4,12 +4,12 @@ export default createStore({
   state: {
     characters: [],
     name: localStorage.getItem("name"),
-    phone: "",
-    email: "",
-    date_of_birth: "",
-    experience_level: "",
-    already_participated: "",
-    character_id: "",
+    phone: localStorage.getItem("phone"),
+    email: localStorage.getItem("email"),
+    date_of_birth: localStorage.getItem("dob"),
+    experience_level: localStorage.getItem("exp"),
+    already_participated: localStorage.getItem("participation"),
+    character_id: localStorage.getItem("character"),
     errors: {
       infoError: false,
       expError: false,
@@ -19,7 +19,10 @@ export default createStore({
       emailHasError: false,
       phoneHasError: false,
       dobHasError: false,
-      inputError: false,
+      expHasError: false,
+      characterHasError: false,
+      participationHasError: false,
+      // inputError: false,
       dropped: false,
       messages: {
         errorMessage: "",
@@ -27,6 +30,9 @@ export default createStore({
         emailErrorMesssage: "",
         phoneErrorMessage: "",
         dobErrorMessage: "",
+        expErrorMessage: "",
+        characterErrorMessage: "",
+        participationErrorMessage: "",
       },
     },
   },
@@ -34,25 +40,30 @@ export default createStore({
     // individual input error methods
     // for name
     nameInputError(state) {
-      console.log(state.name.length);
-      if (state.name.length <= 2 || state.name.length === "") {
+      localStorage.setItem("name", state.name);
+      if (state.name === null || state.name.length === "") {
         state.errors.popupError = true;
         state.errors.nameHasError = true;
         state.errors.messages.nameErrorMessage =
           "Name must be longer than 2 characters";
       } else {
+        state.name === localStorage.getItem("name");
         state.errors.popupError = false;
         state.errors.nameHasError = false;
         state.errors.messages.nameErrorMessage = "";
       }
+      console.log(state.name.length);
     },
     // for email
     emailInputError(state) {
       if (!state.email.includes("@redberry.ge")) {
         state.errors.emailHasError = true;
+        state.errors.popupError = true;
         state.errors.messages.emailErrorMesssage =
           "Email must end with @redberry.ge";
       } else {
+        localStorage.setItem("email", state.email);
+        state.errors.popupError = false;
         state.errors.emailHasError = false;
         state.errors.messages.emailErrorMesssage = "";
       }
@@ -62,9 +73,12 @@ export default createStore({
     phoneInputError(state) {
       if (state.phone.length !== 9 || !/^\d+$/.test(state.phone)) {
         state.errors.phoneHasError = true;
+        state.errors.popupError = true;
         state.errors.messages.phoneErrorMessage =
           "Phone number must only have 9 numbers (numbers only)";
       } else {
+        localStorage.setItem("phone", state.phone);
+        state.errors.popupError = false;
         state.errors.phoneHasError = false;
         state.errors.messages.phoneErrorMessage = "";
       }
@@ -73,34 +87,104 @@ export default createStore({
     dobInputError(state) {
       if (state.date_of_birth === "") {
         state.errors.dobHasError = true;
+        state.errors.popupError = true;
         state.errors.messages.dobErrorMessage =
           "Plese indicate full date of birth";
       } else {
+        localStorage.setItem("dob", state.date_of_birth);
+
         state.errors.dobHasError = false;
+        state.errors.popupError = false;
         state.errors.messages.dobErrorMessage = "";
         console.log(state.date_of_birth);
+      }
+    },
+    // for experience level
+    expInputError(state) {
+      if (state.experience_level === "") {
+        state.errors.expHasError = true;
+        state.errors.popupError = true;
+        state.errors.messages.expErrorMessage = "please select your level";
+      } else {
+        localStorage.setItem("exp", state.experience_level);
+        state.errors.expHasError = false;
+        state.errors.popupError = false;
+        state.errors.messages.expErrorMessage = "";
+      }
+    },
+    characterInputError(state) {
+      if (state.character_id === "") {
+        state.errors.characterHasError = true;
+        state.errors.popupError = true;
+        state.errors.messages.characterErrorMessage =
+          "please choos your character";
+      } else {
+        state.errors.characterHasError = false;
+        state.errors.popupError = false;
+        state.errors.messages.characterErrorMessage = "";
+      }
+    },
+    participationInputError(state) {
+      if (state.already_participated === "") {
+        state.errors.participationHasError = true;
+        state.errors.popupError = true;
+        state.errors.messages.participationErrorMessage =
+          "please choos your character";
+      } else {
+        localStorage.setItem("participation", state.already_participated);
+        state.errors.participationHasError = false;
+        state.errors.popupError = false;
+        state.errors.messages.participationErrorMessage = "";
       }
     },
     // checking all erros when clickin next page
     checkError(state) {
       if (
+        state.name == null ||
         state.name.length <= 2 ||
+        state.email == null ||
         !state.email.includes("@redberry.ge") ||
+        state.phone == null ||
         state.phone.length !== 9 ||
+        state.date_of_birth == null ||
         state.date_of_birth === ""
       ) {
         state.errors.infoError = false;
         state.errors.messages.errorMessage =
           "Please fill every input and follow their requirments";
-        console.log(typeof date_of_birth);
-
         alert(state.errors.messages.errorMessage);
       } else {
-        localStorage.setItem("name", state.name);
         state.errors.infoError = true;
         console.log(typeof state.name);
       }
+    },
 
+    // ----------------------
+    action(state) {
+      state.errors.popupError = !state.errors.popupError;
+    },
+
+    // finish form
+    finish(state) {
+      state.date_of_birth = state.date_of_birth.replace(/-/g, "/");
+      if (
+        state.experience_level === null ||
+        state.already_participated === null ||
+        state.character_id === null ||
+        state.experience_level === "" ||
+        state.already_participated === "" ||
+        state.character_id === ""
+      ) {
+        state.errors.expError = false;
+        alert("error");
+      } else {
+        state.errors.expError = true;
+      }
+      if (state.errors.infoError && state.errors.expError) {
+        state.errors.finish = true;
+      } else {
+        state.errors.finish = false;
+      }
       console.log(
         "name: ",
         state.name,
@@ -117,32 +201,6 @@ export default createStore({
         "charachter_id: ",
         state.character_id
       );
-    },
-
-    // ----------------------
-    action(state) {
-      state.errors.popupError = !state.errors.popupError;
-    },
-
-    // finish form
-    finish(state) {
-      state.date_of_birth = state.date_of_birth.replace(/-/g, "/");
-      if (
-        state.experience_level === "" ||
-        state.already_participated === "" ||
-        state.character_id === ""
-      ) {
-        state.errors.expError = false;
-        alert("error");
-      } else {
-        state.errors.expError = true;
-      }
-      if (state.errors.infoError && state.errors.expError) {
-        state.errors.finish = true;
-      } else {
-        state.errors.finish = false;
-      }
-
       console.log(
         "name: ",
         typeof state.name,
@@ -159,7 +217,6 @@ export default createStore({
         "character_id: ",
         typeof state.character_id
       );
-
       axios
         .post("https://chess-tournament-api.devtest.ge/api/register", {
           name: state.name,
@@ -176,8 +233,14 @@ export default createStore({
         .catch((error) => {
           console.log(error);
         });
-
-      (state.name = ""),
+      localStorage.removeItem("name"),
+        localStorage.removeItem("phone"),
+        localStorage.removeItem("email"),
+        localStorage.removeItem("dob"),
+        localStorage.removeItem("exp"),
+        localStorage.removeItem("character"),
+        localStorage.removeItem("participation"),
+        (state.name = ""),
         (state.phone = ""),
         (state.email = ""),
         (state.date_of_birth = ""),
