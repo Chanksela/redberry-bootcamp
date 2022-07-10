@@ -164,9 +164,7 @@ input {
 .content > div > input {
   margin-bottom: 20px;
 }
-.right {
-  border: 4px solid black;
-}
+
 .right-header {
   font-family: "Open Sans", sans-serif;
   font-weight: 600;
@@ -206,6 +204,10 @@ input {
   flex-direction: column;
   justify-content: center;
 }
+.content > div {
+  display: flex;
+  flex-direction: row;
+}
 .content > div > input {
   width: 70%;
   height: 50%;
@@ -213,14 +215,8 @@ input {
   align-items: center;
   margin-left: 12%;
 }
-.form {
-  border: 2px solid yellow;
-}
-.form-header {
-  border: 2px solid green;
-}
+
 .page-navigation {
-  border: 2px solid orangered;
   width: 100%;
   display: flex;
   flex-direction: row;

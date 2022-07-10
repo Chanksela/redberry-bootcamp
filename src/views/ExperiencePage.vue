@@ -102,15 +102,13 @@ img {
 .knowledge > select {
   width: 80%;
 }
-.form-header {
-  width: 100%;
-  height: 130px;
-}
+
 .content {
   height: 400px;
   widows: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+  margin-left: 12%;
 }
 </style>

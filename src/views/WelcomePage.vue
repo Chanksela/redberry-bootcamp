@@ -1,5 +1,7 @@
 <template>
-  <FormLeft :coverImg="'first.png'" />
+  <div class="left">
+    <FormLeft :coverImg="'first.png'" />
+  </div>
   <div class="right">
     <div class="content">
       <div class="quote">
