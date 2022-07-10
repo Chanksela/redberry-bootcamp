@@ -64,7 +64,7 @@
         class="nxt-btn"
         @click="
           $store.commit('finish'),
-            $store.state.errors.expError && $router.push('/thanks')
+            $store.state.errors.finish && $router.push('/thanks')
         "
       >
         Done

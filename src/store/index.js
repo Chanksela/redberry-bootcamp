@@ -11,8 +11,9 @@ export default createStore({
     already_participated: "",
     character_id: "",
     errors: {
-      infoError: Boolean,
-      expError: Boolean,
+      infoError: false,
+      expError: false,
+      finish: false,
       popupError: false,
       nameHasError: false,
       emailHasError: false,
@@ -131,6 +132,11 @@ export default createStore({
         alert("error");
       } else {
         state.errors.expError = true;
+      }
+      if (state.errors.infoError && state.errors.expError) {
+        state.errors.finish = true;
+      } else {
+        state.errors.finish = false;
       }
       console.log(
         "name: ",

@@ -21,7 +21,6 @@
       <div class="content">
         <!-- name field -->
         <div>
-          {{ $store.state.experience_level }}
           <input
             placeholder="Name"
             type="text"
@@ -110,7 +109,7 @@
         class="nxt-btn"
         @click="
           $store.commit('checkError');
-          $store.state.errors.error && $router.push('/experience');
+          $store.state.errors.infoError && $router.push('/experience');
         "
       >
         Next
