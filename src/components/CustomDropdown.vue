@@ -2,9 +2,15 @@
   <div class="dropdown">
     <p @click="$store.commit('dropDown')" class="text">
       {{
-        $store.state.character_id == null
-          ? "Choose your character"
-          : $store.state.character_id
+        $store.state.character_id == 1
+          ? "Nona Gaphrindashvili"
+          : $store.state.character_id == 2
+          ? "Mikhail Tal"
+          : $store.state.character_id == 3
+          ? "Bobby Fisher"
+          : $store.state.character_id == 4
+          ? "Magnus Carlsen"
+          : "Choose your character"
       }}
       <sup class="required">*</sup>
     </p>
@@ -47,26 +53,19 @@ export default {
 
   methods: {
     test(e) {
-      console.log(this.name);
       this.id = e.target.id;
       localStorage.setItem("character", e.target.id);
       this.$store.state.character_id = localStorage.getItem("character");
       this.$store.state.errors.dropped = !this.$store.state.errors.dropped;
-      console.log(
-        "id: ",
-        this.id,
-        "store id: ",
-        this.$store.state.character_id
-      );
-      this.name = this.characters.map((character) => character);
       console.log(this.characters);
-      // console.log("text: ", this.text);
     },
   },
   mounted() {
     axios
       .get("https://chess-tournament-api.devtest.ge/api/grandmasters")
-      .then((res) => ((this.characters = res.data), console.log(res.data)))
+      .then(
+        (res) => ((this.characters = res.data), console.log(this.characters))
+      )
       .catch((err) => console.log(err.message));
   },
 };

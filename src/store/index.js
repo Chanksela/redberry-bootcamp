@@ -113,7 +113,7 @@ export default createStore({
       }
     },
     characterInputError(state) {
-      if (state.character_id === "") {
+      if (state.character_id === "" || state.character_id == null) {
         state.errors.characterHasError = true;
         state.errors.popupError = true;
         state.errors.messages.characterErrorMessage =
@@ -125,7 +125,10 @@ export default createStore({
       }
     },
     participationInputError(state) {
-      if (state.already_participated === "") {
+      if (
+        state.already_participated === "" ||
+        state.already_participated == null
+      ) {
         state.errors.participationHasError = true;
         state.errors.popupError = true;
         state.errors.messages.participationErrorMessage =
