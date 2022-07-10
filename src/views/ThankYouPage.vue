@@ -1,12 +1,11 @@
 <template>
-  <FormLeft :coverImg="'fourth.png'" />
+  <div class="left">
+    <FormLeft :coverImg="'fourth.png'" />
+  </div>
   <div class="right">
     <div class="content">
       <img src="@/assets/pictures/succsess.png" alt="success" />
-      <h3>Onboarding completed!</h3>
-    </div>
-    <div class="page-navigation">
-      <router-link class="btn nxt-btn" to="/">TEMPORARY HOMEPAGE</router-link>
+      <p>Onboarding completed!</p>
     </div>
   </div>
 </template>
@@ -18,3 +17,19 @@ export default {
   components: { FormLeft },
 };
 </script>
+<style scoped>
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.content > p {
+  margin-top: 30px;
+  font-family: "Nunito";
+  font-style: normal;
+  font-weight: 800;
+  font-size: 36px;
+  line-height: 150%;
+}
+</style>

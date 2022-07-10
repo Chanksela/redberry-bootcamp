@@ -1,18 +1,24 @@
 <template>
-  <FormLeft
-    :coverImg="'third.png'"
-    :quote="'MANY HAVE BECOME CHESS MASTERS; NO ONE HAS BECOME THE MASTER OF CHESS'"
-    :author="'SIEGBERT TARRASCH'"
-  />
+  <div class="left">
+    <FormLeft
+      :coverImg="'third.png'"
+      :quote="'MANY HAVE BECOME CHESS MASTERS; NO ONE HAS BECOME THE MASTER OF CHESS'"
+      :author="'SIEGBERT TARRASCH'"
+    />
+  </div>
+
   <div class="right">
+    <Popup v-if="!$store.state.errors.finish">
+      Please Select Every Field
+    </Popup>
     <div class="right-header">
-      <h6>Changable Header text</h6>
+      <h6>First step is done, continue to finish onboarding</h6>
     </div>
-    <div class="animation">HERE GOES THE ANIMATION</div>
+    <div class="animation"></div>
     <div class="form">
       <div class="form-header">
         <h3>Chess experience</h3>
-        <p>This is basic informations field</p>
+        <p>This is basic experience field</p>
       </div>
       <div class="content">
         <div class="knowledge">
@@ -31,8 +37,9 @@
             <option value="professional">Professional</option>
           </select>
         </div>
-        <CustomDropdown />
-
+        <div>
+          <CustomDropdown />
+        </div>
         <div class="prev-participation">
           <p>
             Have you participated In the Redberry Championship?<sup
@@ -60,30 +67,29 @@
           <label for="no">No</label><br />
         </div>
       </div>
-    </div>
-    <div class="page-navigation">
-      <router-link class="prv-btn" to="/info">Back</router-link>
-      <button
-        class="nxt-btn"
-        @click="
-          $store.commit('finish'),
-            $store.state.errors.finish && $router.push('/thanks')
-        "
-      >
-        Done
-      </button>
-      <button @click="post">POST</button>
-      <button @click="get">GET</button>
+      <div class="page-navigation">
+        <router-link class="prv-btn" to="/info">Back</router-link>
+        <button
+          class="nxt-btn"
+          @click="
+            $store.commit('finish'),
+              $store.state.errors.finish && $router.push('/thanks')
+          "
+        >
+          Done
+        </button>
+      </div>
     </div>
   </div>
 </template>
 <script>
 import FormLeft from "@/components/FormLeft.vue";
 import CustomDropdown from "@/components/CustomDropdown.vue";
+import Popup from "@/components/Popup.vue";
 
 export default {
   name: "ExperiencePage",
-  components: { FormLeft, CustomDropdown },
+  components: { FormLeft, CustomDropdown, Popup },
 };
 </script>
 <style scoped>
@@ -95,5 +101,16 @@ img {
 }
 .knowledge > select {
   width: 80%;
+}
+.form-header {
+  width: 100%;
+  height: 130px;
+}
+.content {
+  height: 400px;
+  widows: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
 }
 </style>

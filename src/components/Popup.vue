@@ -1,10 +1,8 @@
 <template>
-  <div class="popup">
+  <div v-if="!close" class="popup">
     <div class="popup-inner">
       <slot />
-      <button @click="$store.commit('action')" class="popup-close">
-        Close
-      </button>
+      <button @click="action" class="popup-close">Close</button>
     </div>
   </div>
 </template>
@@ -12,6 +10,15 @@
 <script>
 export default {
   name: "PopUp",
+  data() {
+    return { close: false };
+  },
+  methods: {
+    action() {
+      this.close = true;
+      console.log(this.$store.state.errors.popupError === true);
+    },
+  },
 };
 </script>
 

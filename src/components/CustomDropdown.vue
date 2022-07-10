@@ -76,13 +76,12 @@ img {
   width: 30px;
 }
 .dropdown {
-  border: red solid 3px;
   cursor: pointer;
-  max-width: 30%;
+  max-width: 24%;
+  border-bottom: 1px solid black;
 }
 .text {
   padding: 0.15rem;
-  border: black 1px solid;
   width: 80%;
 }
 .show {
@@ -90,14 +89,12 @@ img {
 }
 .hide {
   display: none;
-  border: blue solid 2px;
   top: 0;
   max-width: 100%;
 }
 
 .dropdown-option {
   /* background-color: red; */
-  border: green solid 1px;
   max-width: 100%;
   display: flex;
   flex-direction: row;
@@ -108,8 +105,4 @@ img {
 img {
   pointer-events: none;
 }
-/* .button {
-  padding: 20px;
-  background-color: black;
-} */
 </style>

@@ -168,7 +168,8 @@ export default createStore({
 
     // ----------------------
     action(state) {
-      state.errors.popupError = !state.errors.popupError;
+      state.errors.popupError = false;
+      console.log(state.errors.popupError == !state.errors.popupError);
     },
 
     // finish form
