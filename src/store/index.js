@@ -3,7 +3,7 @@ import { createStore } from "vuex";
 export default createStore({
   state: {
     characters: [],
-    name: "",
+    name: localStorage.getItem("name"),
     phone: "",
     email: "",
     date_of_birth: "",
@@ -78,6 +78,7 @@ export default createStore({
       } else {
         state.errors.dobHasError = false;
         state.errors.messages.dobErrorMessage = "";
+        console.log(state.date_of_birth);
       }
     },
     // checking all erros when clickin next page
@@ -91,9 +92,13 @@ export default createStore({
         state.errors.infoError = false;
         state.errors.messages.errorMessage =
           "Please fill every input and follow their requirments";
+        console.log(typeof date_of_birth);
+
         alert(state.errors.messages.errorMessage);
       } else {
+        localStorage.setItem("name", state.name);
         state.errors.infoError = true;
+        console.log(typeof state.name);
       }
 
       console.log(
@@ -113,7 +118,6 @@ export default createStore({
         state.character_id
       );
     },
-    // ---------------------
 
     // ----------------------
     action(state) {
@@ -138,28 +142,53 @@ export default createStore({
       } else {
         state.errors.finish = false;
       }
+
       console.log(
         "name: ",
-        state.name,
+        typeof state.name,
         "email: ",
-        state.email,
+        typeof state.email,
         "phone & phone length: ",
-        state.phone,
+        typeof state.phone,
         "DOB: ",
-        state.date_of_birth,
+        typeof state.date_of_birth,
         "experience: ",
-        state.experience_level,
+        typeof state.experience_level,
         "previous participation: ",
-        state.already_participated,
+        typeof state.already_participated,
         "character_id: ",
-        state.character_id
+        typeof state.character_id
       );
+
+      axios
+        .post("https://chess-tournament-api.devtest.ge/api/register", {
+          name: state.name,
+          email: state.email,
+          phone: state.phone,
+          date_of_birth: state.date_of_birth,
+          experience_level: state.experience_level,
+          already_participated: state.already_participated,
+          character_id: state.character_id,
+        })
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+
+      (state.name = ""),
+        (state.phone = ""),
+        (state.email = ""),
+        (state.date_of_birth = ""),
+        (state.experience_level = ""),
+        (state.already_participated = ""),
+        (state.character_id = "");
     },
     // custom dropdown
     dropDown(state) {
       state.errors.dropped = !state.errors.dropped;
     },
-
     characterSelect(state) {
       state.errors.dropped = !state.errors.dropped;
       console.log(state.character_id);

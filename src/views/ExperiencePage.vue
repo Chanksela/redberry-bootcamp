@@ -69,6 +69,8 @@
       >
         Done
       </button>
+      <button @click="post">POST</button>
+      <button @click="get">GET</button>
     </div>
   </div>
 </template>
