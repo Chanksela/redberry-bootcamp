@@ -4,10 +4,13 @@
     :quote="'WHEN YOU SEE A GOOD MOVE LOOK FOR A BETTER ONE'"
     :author="'EMANUEL LASKER'"
   />
-  <Popup v-if="$store.state.errors.popupError">{{
-    $store.state.errors.messages.nameErrorMessage
-  }}</Popup>
   <div class="right">
+    <div class="popup-errors">
+      <Popup
+        v-if="$store.state.errors.messages.emailErrorMesssage.length > 0"
+        >{{ $store.state.errors.messages.emailErrorMesssage }}</Popup
+      >
+    </div>
     <div class="right-header">
       <h6>Changable Header text</h6>
     </div>
@@ -118,8 +121,8 @@
   </div>
 </template>
 <script>
-import FormLeft from "@/components/FormLeft.vue";
 import Popup from "../components/Popup.vue";
+import FormLeft from "@/components/FormLeft.vue";
 export default {
   name: "InfoPage",
   components: { FormLeft, Popup },

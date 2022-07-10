@@ -46,8 +46,6 @@ export default {
   data() {
     return {
       characters: null,
-      id: "",
-      name: "",
     };
   },
 
@@ -57,10 +55,11 @@ export default {
       localStorage.setItem("character", e.target.id);
       this.$store.state.character_id = localStorage.getItem("character");
       this.$store.state.errors.dropped = !this.$store.state.errors.dropped;
-      console.log(this.characters);
+      console.log(this.$store.state.character_id);
     },
   },
   mounted() {
+    console.log(this.$store.state.experience_level);
     axios
       .get("https://chess-tournament-api.devtest.ge/api/grandmasters")
       .then(
