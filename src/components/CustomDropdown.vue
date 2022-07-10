@@ -3,7 +3,10 @@
     <h1>
       {{ $store.state.character_id }}
     </h1>
-    <p @click="$store.commit('dropDown')" class="text">Choose your character</p>
+    <p @click="$store.commit('dropDown')" class="text">
+      Choose your character
+      <sup class="required">*</sup>
+    </p>
     <div
       :class="{
         show: $store.state.errors.dropped,
@@ -42,6 +45,7 @@ export default {
     test(e) {
       this.id = e.target.id;
       this.$store.state.character_id = e.target.id;
+      this.$store.state.errors.dropped = !this.$store.state.errors.dropped;
       console.log(
         "id: ",
         this.id,
@@ -71,6 +75,7 @@ img {
   max-width: 30%;
 }
 .text {
+  padding: 0.15rem;
   border: black 1px solid;
   width: 80%;
 }
@@ -83,6 +88,7 @@ img {
   top: 0;
   max-width: 100%;
 }
+
 .dropdown-option {
   /* background-color: red; */
   border: green solid 1px;

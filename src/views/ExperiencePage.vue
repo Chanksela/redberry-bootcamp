@@ -16,16 +16,15 @@
       </div>
       <div class="content">
         <div class="knowledge">
-          <label for="level"
-            >Level of knowledge<sup class="required">*</sup></label
-          ><br />
           <select
             v-model="$store.state.experience_level"
             name="level"
             id="level"
             form="knowledgelvl"
           >
-            <option value="" disabled selected>Level of knowledge</option>
+            <option value="" disabled selected>
+              Level of knowledge<sup class="required">*</sup>
+            </option>
             <option value="beginner">Beginner</option>
             <option value="intermediate">Intermediate</option>
             <option value="professional">Professional</option>
@@ -61,7 +60,15 @@
     </div>
     <div class="page-navigation">
       <router-link class="prv-btn" to="/info">Back</router-link>
-      <button class="nxt-btn" @click="$store.commit('finish')">Done</button>
+      <button
+        class="nxt-btn"
+        @click="
+          $store.commit('finish'),
+            $store.state.errors.expError && $router.push('/thanks')
+        "
+      >
+        Done
+      </button>
     </div>
   </div>
 </template>

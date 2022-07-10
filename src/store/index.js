@@ -11,7 +11,8 @@ export default createStore({
     already_participated: "",
     character_id: "",
     errors: {
-      error: Boolean,
+      infoError: Boolean,
+      expError: Boolean,
       popupError: false,
       nameHasError: false,
       emailHasError: false,
@@ -86,12 +87,12 @@ export default createStore({
         state.phone.length !== 9 ||
         state.date_of_birth === ""
       ) {
-        state.errors.error = false;
+        state.errors.infoError = false;
         state.errors.messages.errorMessage =
           "Please fill every input and follow their requirments";
         alert(state.errors.messages.errorMessage);
       } else {
-        state.errors.error = true;
+        state.errors.infoError = true;
       }
 
       console.log(
@@ -121,6 +122,16 @@ export default createStore({
     // finish form
     finish(state) {
       state.date_of_birth = state.date_of_birth.replace(/-/g, "/");
+      if (
+        state.experience_level === "" ||
+        state.already_participated === "" ||
+        state.character_id === ""
+      ) {
+        state.errors.expError = false;
+        alert("error");
+      } else {
+        state.errors.expError = true;
+      }
       console.log(
         "name: ",
         state.name,
@@ -134,7 +145,7 @@ export default createStore({
         state.experience_level,
         "previous participation: ",
         state.already_participated,
-        "charachter_id: ",
+        "character_id: ",
         state.character_id
       );
     },

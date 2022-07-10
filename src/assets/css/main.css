@@ -20,6 +20,16 @@ input {
   border-bottom: 1px solid black;
   outline: none;
 }
+select {
+  appearance: none;
+  background-color: transparent;
+  padding: 0.25rem;
+  border-left: none;
+  border-right: none;
+  border-top: none;
+  border-bottom: 1px solid black;
+  outline: none;
+}
 .nxt-btn {
   background-color: black;
   color: white;
