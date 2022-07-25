@@ -8,22 +8,26 @@
   </div>
   <div class="right">
     <div class="popup-errors">
-      <Popup v-if="$store.state.errors.nameHasError">{{
+      <Popup v-if="$store.state.errors.nameHasError" inputField="Name">{{
         $store.state.errors.messages.nameErrorMessage.length > 0 &&
         $store.state.errors.messages.nameErrorMessage
       }}</Popup>
-      <Popup v-if="$store.state.errors.emailHasError">{{
+      <Popup v-if="$store.state.errors.emailHasError" inputField="Email">{{
         $store.state.errors.messages.emailErrorMesssage.length > 0 &&
         $store.state.errors.messages.emailErrorMesssage
       }}</Popup>
-      <Popup v-if="$store.state.errors.phoneHasError">{{
+      <Popup v-if="$store.state.errors.phoneHasError" inputField="Phone">{{
         $store.state.errors.messages.phoneErrorMessage.length > 0 &&
         $store.state.errors.messages.phoneErrorMessage
       }}</Popup>
-      <Popup v-if="$store.state.errors.dobHasError">{{
-        $store.state.errors.messages.dobErrorMessage.length > 0 &&
-        $store.state.errors.messages.dobErrorMessage
-      }}</Popup>
+      <Popup
+        v-if="$store.state.errors.dobHasError"
+        inputField="Date of Birth"
+        >{{
+          $store.state.errors.messages.dobErrorMessage.length > 0 &&
+          $store.state.errors.messages.dobErrorMessage
+        }}</Popup
+      >
     </div>
     <div class="right-header">
       <div class="header-content">Start Creating Your Account</div>
@@ -151,7 +155,15 @@ export default {
 input {
   width: 30%;
 }
-
+.popup-errors {
+  position: fixed;
+}
+.popup-errors > div {
+  /* background-color: red; */
+  margin: 5px 0;
+  display: flex;
+  flex-direction: column;
+}
 .right {
   display: flex;
   flex-direction: column;
