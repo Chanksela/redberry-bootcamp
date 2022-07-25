@@ -11,7 +11,12 @@
         </div>
         <p class="header">WHO WE ARE</p>
         <div class="page-navigation">
-          <router-link class="btn nxt-btn" to="/info">Get Started</router-link>
+          <router-link class="btn nxt-btn" to="/info"
+            >Get Started
+            <img
+              id="down-arrow"
+              src="../assets/pictures/arrow-right-circle.png"
+          /></router-link>
         </div>
       </div>
     </div>
@@ -33,13 +38,15 @@ export default {
   background-color: #212529;
 }
 .content {
-  height: 100%;
-  width: 100%;
   color: white;
 }
 .content > .quote {
-  margin-top: 250px;
-  margin-left: 100px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: 10%;
+  margin-bottom: 200px;
 }
 
 .first-line {
@@ -49,12 +56,27 @@ export default {
 .header {
   font-family: "Nunito", sans-serif;
   font-weight: 800;
-  font-size: 80px;
+  font-size: 4rem;
+}
+.page-navigation {
+  display: flex;
+  justify-content: flex-start;
+}
+.page-navigation > a {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+#down-arrow {
+  height: 30px;
+  width: auto;
+  margin-left: 20px;
 }
 .p {
   margin-left: 10px;
   font-size: 20px;
   font-weight: 700;
-  color: black;
+  color: #212529;
 }
 </style>
