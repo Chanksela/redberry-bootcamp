@@ -53,7 +53,9 @@
             }"
             v-model="$store.state.name"
             @change="$store.commit('nameInputError')"
-          /><sup class="required">*</sup>
+          />
+          <sup class="required">*</sup>
+
           <div
             v-if="$store.state.errors.messages.nameErrorMessage"
             class="errorMsg"
@@ -152,6 +154,7 @@ export default {
   display: flex;
   flex-direction: column;
 }
+
 input {
   width: 30%;
 }
